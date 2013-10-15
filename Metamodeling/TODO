@@ -1,8 +1,0 @@
-M2 :
-	- le connecteur ne doit pas pouvoir contenir juste un composant
-		-> piste du prof : faire deux élément abstraits
-		-> piste à nous : revenir comme avant (connecteur composé de config)
-		
-M1 :
-	- Rajouter la config sur le modèle client/serveur
-	- Rajouter un binding entre le composant et la config serveur (WHAT ?)
