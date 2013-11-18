@@ -6,40 +6,42 @@ import java.util.HashMap;
 
 public class Composant extends Element {
 
-	HashMap<String,ServiceRequis> servicesR;
-	HashMap<String,ServiceFourni> servicesF;
-	HashMap<String,PortRequis> portsR;
-	HashMap<String,PortFourni> portsF;
-	Configuration configuration;
+	private HashMap<String,ServiceRequis> servicesR;
+	private HashMap<String,ServiceFourni> servicesF;
+	private HashMap<String,PortRequis> portsR;
+	private HashMap<String,PortFourni> portsF;
+	private Configuration configuration;
 	
 
-	public Composant(String name) {
+	public Composant(String name, Configuration parent) {
 		super(name);
 		this.configuration = null;
 		this.servicesR = new HashMap<String,ServiceRequis>();
 		this.servicesF = new HashMap<String,ServiceFourni>();
 		this.portsR = new HashMap<String,PortRequis>();
 		this.portsF = new HashMap<String,PortFourni>();
+		
+		this.configuration = parent;
+	}
+	
+	public Configuration getParent() {
+		return this.configuration;
 	}
 
-	public void addConfiguration(Configuration config) {
-		this.configuration = config;
+	public void addService(ServiceFourni s) {
+		this.servicesF.put(s.getName(), s);
+	}
+
+	public void addService(ServiceRequis s) {
+		this.servicesR.put(s.getName(), s);
 	}
 	
-	public void addService(boolean isFourni, String name) {
-		if (isFourni) {
-			this.servicesF.put(name, new ServiceFourni(name));
-		} else {
-			this.servicesR.put(name, new ServiceRequis(name));
-		}
+	public void addPort(PortFourni p) {
+		this.portsF.put(p.getName(), p);
 	}
 	
-	public void addPort(boolean isFourni, String name) {
-		if (isFourni) {
-			this.portsF.put(name, new PortFourni(name));
-		} else {
-			this.portsR.put(name, new PortRequis(name));
-		}
+	public void addPort(PortRequis p) {
+		this.portsR.put(p.getName(), p);
 	}
 
 	public PortRequis getPortR(String name) {

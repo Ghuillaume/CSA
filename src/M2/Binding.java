@@ -10,12 +10,15 @@ public class Binding {
 	private PortConfig b;
 	private Port c;
 	
+	private Configuration config;
+	
 	
 
-	public Binding(String name) {
+	public Binding(String name, Configuration config) {
 		this.name = name;
 		this.isBindingComponent = false;
 		this.isBindingConnector = false;
+		this.config = config;
 	}
 
 	

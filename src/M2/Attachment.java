@@ -6,8 +6,11 @@ public class Attachment {
 	private Role a;
 	private Port b;
 	
-	public Attachment(String name) {
+	private Configuration config;
+	
+	public Attachment(String name, Configuration config) {
 		this.name = name;
+		this.config = config;
 	}
 	
 	public void bind(RoleFrom r, PortFourni p) {
