@@ -1,17 +1,17 @@
 package M2;
 
-import java.util.HashMap;
+import java.util.ArrayList;
 
 public class Configuration {
 
-	HashMap<String,Element> components;
-	HashMap<String,Element> connectors;
-	HashMap<String,Attachment> attachments;
-	HashMap<String,Binding> bindings;
-	HashMap<String,ServiceConfig> servicesRequis;
-	HashMap<String,ServiceConfig> servicesFournis;
-	HashMap<String,PortConfig> portsRequis;
-	HashMap<String,PortConfig> portsFournis;
+	ArrayList<Element> components;
+	ArrayList<Element> connectors;
+	ArrayList<Attachment> attachments;
+	ArrayList<Binding> bindings;
+	ArrayList<ServiceConfig> servicesRequis;
+	ArrayList<ServiceConfig> servicesFournis;
+	ArrayList<PortConfig> portsRequis;
+	ArrayList<PortConfig> portsFournis;
 	
 	String name;
 	
@@ -19,38 +19,38 @@ public class Configuration {
 	public Configuration(String name) {
 		
 		this.name = name;
-		this.components = new HashMap<String,Element>();
-		this.connectors = new HashMap<String,Element>();
-		this.attachments = new HashMap<String,Attachment>();
-		this.bindings = new HashMap<String,Binding>();
-		this.servicesRequis = new HashMap<String,ServiceConfig>();
-		this.servicesFournis = new HashMap<String,ServiceConfig>();
-		this.portsRequis = new HashMap<String,PortConfig>();
-		this.portsFournis = new HashMap<String,PortConfig>();
+		this.components = new ArrayList<Element>();
+		this.connectors = new ArrayList<Element>();
+		this.attachments = new ArrayList<Attachment>();
+		this.bindings = new ArrayList<Binding>();
+		this.servicesRequis = new ArrayList<ServiceConfig>();
+		this.servicesFournis = new ArrayList<ServiceConfig>();
+		this.portsRequis = new ArrayList<PortConfig>();
+		this.portsFournis = new ArrayList<PortConfig>();
 	}
 	
 	public void addComponent(Composant c) {
-		this.components.put(c.getName(), c);
+		this.components.add(c);
 	}
 	
 	public void addConnector(Connecteur c) {
-		this.connectors.put(c.getName(), c);
+		this.connectors.add(c);
 	}
 	
 	public void addService(ServiceConfigFourni sc) {
-		this.servicesFournis.put(sc.getName(), sc);
+		this.servicesFournis.add(sc);
 	}
 	
 	public void addService(ServiceConfigRequis sc) {
-		this.servicesRequis.put(sc.getName(), sc);
+		this.servicesRequis.add(sc);
 	}
 	
 	public void addPort(PortConfigFourni pc) {
-		this.portsFournis.put(name, pc);
+		this.portsFournis.add(pc);
 	}
 	
 	public void addPort(PortConfigRequis pc) {
-		this.portsRequis.put(name, pc);
+		this.portsRequis.add(pc);
 	}
 	
 	// Attach (2)
@@ -58,14 +58,14 @@ public class Configuration {
 	public Attachment addLink(String name, RoleFrom r, PortFourni p) {
 		Attachment a = new Attachment(name, this);
 		a.bind(r, p);
-		this.attachments.put(name, a);
+		this.attachments.add(a);
 		return a;
 	}
 	
 	public Attachment addLink(String name, RoleTo r, PortRequis p) {
 		Attachment a = new Attachment(name, this);
 		a.bind(r, p);
-		this.attachments.put(name, a);
+		this.attachments.add(a);
 		return a;
 	}
 	
@@ -75,29 +75,37 @@ public class Configuration {
 	public Binding addLink(String name, RoleFrom r, PortConfigFourni p) {
 		Binding b = new Binding(name, this);
 		b.bind(r, p);
-		this.bindings.put(name, b);
+		this.bindings.add(b);
 		return b;
 	}
 	
 	public Binding addLink(String name, RoleTo r, PortConfigRequis p) {
 		Binding b = new Binding(name, this);
 		b.bind(r, p);
-		this.bindings.put(name, b);
+		this.bindings.add(b);
 		return b;
 	}
 	
 	public Binding addLink(String name, PortConfigRequis pc, PortRequis p) {
 		Binding b = new Binding(name, this);
 		b.bind(pc, p);
-		this.bindings.put(name, b);
+		this.bindings.add(b);
 		return b;
 	}
 	
 	public Binding addLink(String name, PortConfigFourni pc, PortFourni p) {
 		Binding b = new Binding(name, this);
 		b.bind(pc, p);
-		this.bindings.put(name, b);
+		this.bindings.add(b);
 		return b;
+	}
+	
+	
+	// Links management
+
+	public void notifyActivation(Object sender, String message) {
+		ArrayList<Object> dest = new ArrayList<Object>();
+		
 	}
 	
 }

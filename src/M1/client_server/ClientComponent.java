@@ -18,7 +18,7 @@ public class ClientComponent extends Composant {
 
 
 	public void sendRequest(String message) {
-		Trace.printMessage("Component " + this.getName() + " send request " + message);
-		((SendRequestPort) this.getPortF("SendRequest")).sendRequest(message);
+		Trace.printMessage("Client wants to send : " + message);
+		((SendRequestPort) this.getPortF("SendRequest")).activate(message);
 	}
 }
