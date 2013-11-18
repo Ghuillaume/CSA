@@ -1,5 +1,7 @@
 package M2;
 
+import java.util.Collection;
+
 public class Attachment {
 
 	private String name;
@@ -42,6 +44,20 @@ public class Attachment {
 
 	public Port getDestination() {
 		return b;
+	}
+
+	public Object getReceiver(Object sender) {
+		if(sender instanceof Role) {
+			if(((Role)sender).getName().equals(this.a.getName())) {
+				return this.b;
+			}
+		}
+		else if(sender instanceof Port) {
+			if(((Port)sender).getName().equals(this.b.getName())) {
+				return this.a;
+			}
+		}
+		return null;
 	}
 	
 }

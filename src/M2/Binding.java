@@ -77,6 +77,40 @@ public class Binding {
 		else
 			return null;
 	}
+
+
+	public Object getReceiver(Object sender) {
+		
+		if(isBindingComponent) {
+			// b & c
+			if(sender instanceof PortConfig) {
+				if(((PortConfig)sender).getName().equals(this.b.getName())) {
+					return this.c;
+				}
+			}
+			else if(sender instanceof Port) {
+				if(((Port)sender).getName().equals(this.c.getName())) {
+					return this.b;
+				}
+			}
+			
+		}
+		else if(isBindingConnector) {
+			// a & b
+			if(sender instanceof PortConfig) {
+				if(((PortConfig)sender).getName().equals(this.a.getName())) {
+					return this.b;
+				}
+			}
+			else if(sender instanceof Role) {
+				if(((Role)sender).getName().equals(this.b.getName())) {
+					return this.a;
+				}
+			}
+			
+		}
+		return null;
+	}
 	
 
 }

@@ -13,4 +13,8 @@ public abstract class PortConfig {
 	public Configuration getParent() {
 		return this.parent;
 	}
+	
+	public String getName() {
+		return this.name;
+	}
 }

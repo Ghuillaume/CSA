@@ -1,6 +1,9 @@
 package M2;
 
 import java.util.ArrayList;
+import java.util.Iterator;
+
+import M0.Trace;
 
 public class Configuration {
 
@@ -12,6 +15,8 @@ public class Configuration {
 	ArrayList<ServiceConfig> servicesFournis;
 	ArrayList<PortConfig> portsRequis;
 	ArrayList<PortConfig> portsFournis;
+	
+	ArrayList<String> tags;
 	
 	String name;
 	
@@ -27,20 +32,41 @@ public class Configuration {
 		this.servicesFournis = new ArrayList<ServiceConfig>();
 		this.portsRequis = new ArrayList<PortConfig>();
 		this.portsFournis = new ArrayList<PortConfig>();
+		this.tags = new ArrayList<String>();
 	}
 	
 	public void addComponent(Composant c) {
-		this.components.add(c);
+		if(this.tags.contains(c.getName())) {
+			Trace.printError("Tag " + c.getName() + " is not available, component as not been created");
+		}
+		else {
+			this.components.add(c);
+			this.tags.add(c.getName());
+		}
 	}
 	
 	public void addConnector(Connecteur c) {
-		this.connectors.add(c);
+		if(this.tags.contains(c.getName())) {
+			Trace.printError("Tag " + c.getName() + " is not available, connector as not been created");
+		}
+		else {
+			this.connectors.add(c);
+			this.tags.add(c.getName());
+		}
 	}
 	
 	public void addService(ServiceConfigFourni sc) {
-		this.servicesFournis.add(sc);
+		if(this.tags.contains(sc.getName())) {
+			Trace.printError("Tag " + sc.getName() + " is not available, service as not been created");
+		}
+		else {
+			this.servicesFournis.add(sc);
+			this.tags.add(sc.getName());
+		}
 	}
 	
+	
+	// TODO continuer le check du nom pour tout
 	public void addService(ServiceConfigRequis sc) {
 		this.servicesRequis.add(sc);
 	}
@@ -103,8 +129,22 @@ public class Configuration {
 	
 	// Links management
 
-	public void notifyActivation(Object sender, String message) {
-		ArrayList<Object> dest = new ArrayList<Object>();
+	public void notifyActivation(Object sender, String message) {		
+		ArrayList<Object> receiver = new ArrayList<Object>();
+		
+		// Find all receiver in attachments list
+		Iterator<Attachment> itAttach = this.attachments.iterator();
+		while(itAttach.hasNext()) {
+			receiver.add(itAttach.next().getReceiver(sender));
+		}
+
+		// Find all receiver in bindings list
+		Iterator<Binding> itBind = this.bindings.iterator();
+		while(itBind.hasNext()) {
+			receiver.add(itBind.next().getReceiver(sender));
+		}
+		
+		// Activate all receivers
 		
 	}
 	
