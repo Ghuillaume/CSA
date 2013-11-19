@@ -1,20 +1,19 @@
 package M2;
 
-public abstract class Service {
+public abstract class Service extends Interface {
 
-	private String name;
-	private Composant parent;
+	protected Composant parent;
 	
 	public Service(String name, Composant parent) {
-		this.name = name;
+		super(name);
 		this.parent = parent;
-	}
-	
-	public String getName() {
-		return this.name;
 	}
 	
 	public Composant getParent() {
 		return this.parent;
+	}
+	
+	public Configuration getConfig() {
+		return this.parent.getParent();
 	}
 }

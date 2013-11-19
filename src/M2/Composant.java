@@ -10,22 +10,22 @@ public class Composant extends Element {
 	private HashMap<String,ServiceFourni> servicesF;
 	private HashMap<String,PortRequis> portsR;
 	private HashMap<String,PortFourni> portsF;
-	private Configuration configuration;
+	private Configuration parent;
 	
 
 	public Composant(String name, Configuration parent) {
 		super(name);
-		this.configuration = null;
+		this.parent = null;
 		this.servicesR = new HashMap<String,ServiceRequis>();
 		this.servicesF = new HashMap<String,ServiceFourni>();
 		this.portsR = new HashMap<String,PortRequis>();
 		this.portsF = new HashMap<String,PortFourni>();
 		
-		this.configuration = parent;
+		this.parent = parent;
 	}
 	
 	public Configuration getParent() {
-		return this.configuration;
+		return this.parent;
 	}
 
 	public void addService(ServiceFourni s) {

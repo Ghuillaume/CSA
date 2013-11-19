@@ -2,26 +2,20 @@ package M2;
 
 import M0.Trace;
 
-public abstract class Port {
+public abstract class Port extends Interface {
 
-	private String name;
-	private Composant parent;
+	protected Composant parent;
 	
 	public Port(String name, Composant parent) {
-		this.name = name;
+		super(name);
 		this.parent = parent;
-	}
-
-	public void activate(String message) {
-		Trace.printMessage("Port " + this.getName() + " received message : " + message);		
-		this.parent.getParent().notifyActivation(this, message);
-	}
-
-	public String getName() {
-		return this.name;
 	}
 	
 	public Composant getParent() {
 		return this.parent;
+	}
+	
+	public Configuration getConfig() {
+		return this.parent.getParent();
 	}
 }

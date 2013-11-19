@@ -46,7 +46,7 @@ public class Attachment {
 		return b;
 	}
 
-	public Object getReceiver(Object sender) {
+	public Interface getReceiver(Object sender) {
 		if(sender instanceof Role) {
 			if(((Role)sender).getName().equals(this.a.getName())) {
 				return this.b;

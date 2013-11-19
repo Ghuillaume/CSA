@@ -1,20 +1,19 @@
 package M2;
 
-public abstract class Role {
+public abstract class Role extends Interface {
 
-	private String name;
-	private Connecteur parent;
+	protected Connecteur parent;
 	
 	public Role(String name, Connecteur parent) {
-		this.name = name;
+		super(name);
 		this.parent = parent;
-	}
-	
-	public String getName() {
-		return this.name;
 	}
 	
 	public Connecteur getParent() {
 		return this.parent;
+	}
+	
+	public Configuration getConfig() {
+		return this.parent.getParent();
 	}
 }

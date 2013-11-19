@@ -13,10 +13,8 @@ public class RPCConnector extends Connecteur{
 		super(name, config);
 		
 		config.addConnector(this);
-		this.addRole(new ServerCallerRole("ServerCaller", this));
-		this.addRole(new ClientCallerRole("ClientCaller", this));
-		this.addRole(new ServerCalledRole("ServerCalled", this));
-		this.addRole(new ClientCalledRole("ClientCalled", this));
+		this.addConnectedRoles(new ClientCallerRole("ClientCaller", this), new ServerCalledRole("ServerCalled", this));
+		this.addConnectedRoles(new ServerCallerRole("ServerCaller", this), new ClientCalledRole("ClientCalled", this));
 	}
 
 }

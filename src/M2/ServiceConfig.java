@@ -1,20 +1,19 @@
 package M2;
 
-public abstract class ServiceConfig {
+public abstract class ServiceConfig extends Interface {
 
-	private String name;
-	private Configuration parent;
+	protected Configuration parent;
 	
 	public ServiceConfig(String name, Configuration config) {
-		this.name = name;
+		super(name);
 		this.parent = config;
 	}
 	
-	public String getName() {
-		return this.name;
+	public Configuration getParent() {
+		return this.parent;
 	}
 	
-	public Configuration getParent() {
+	public Configuration getConfig() {
 		return this.parent;
 	}
 }

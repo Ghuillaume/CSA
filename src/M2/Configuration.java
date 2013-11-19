@@ -5,27 +5,26 @@ import java.util.Iterator;
 
 import M0.Trace;
 
-public class Configuration {
+public class Configuration extends Element {
 
-	ArrayList<Element> components;
-	ArrayList<Element> connectors;
-	ArrayList<Attachment> attachments;
-	ArrayList<Binding> bindings;
-	ArrayList<ServiceConfig> servicesRequis;
-	ArrayList<ServiceConfig> servicesFournis;
-	ArrayList<PortConfig> portsRequis;
-	ArrayList<PortConfig> portsFournis;
+	private ArrayList<Composant> components;
+	private ArrayList<Connecteur> connectors;
+	private ArrayList<Attachment> attachments;
+	private ArrayList<Binding> bindings;
+	private ArrayList<ServiceConfig> servicesRequis;
+	private ArrayList<ServiceConfig> servicesFournis;
+	private ArrayList<PortConfig> portsRequis;
+	private ArrayList<PortConfig> portsFournis;
 	
-	ArrayList<String> tags;
+	private ArrayList<String> tags;
 	
-	String name;
 	
 	
 	public Configuration(String name) {
+		super(name);
 		
-		this.name = name;
-		this.components = new ArrayList<Element>();
-		this.connectors = new ArrayList<Element>();
+		this.components = new ArrayList<Composant>();
+		this.connectors = new ArrayList<Connecteur>();
 		this.attachments = new ArrayList<Attachment>();
 		this.bindings = new ArrayList<Binding>();
 		this.servicesRequis = new ArrayList<ServiceConfig>();
@@ -66,32 +65,63 @@ public class Configuration {
 	}
 	
 	
-	// TODO continuer le check du nom pour tout
 	public void addService(ServiceConfigRequis sc) {
-		this.servicesRequis.add(sc);
+		if(this.tags.contains(sc.getName())) {
+			Trace.printError("Tag " + sc.getName() + " is not available, service as not been created");
+		}
+		else {
+			this.servicesRequis.add(sc);
+			this.tags.add(sc.getName());
+		}
 	}
 	
 	public void addPort(PortConfigFourni pc) {
-		this.portsFournis.add(pc);
+		if(this.tags.contains(pc.getName())) {
+			Trace.printError("Tag " + pc.getName() + " is not available, service as not been created");
+		}
+		else {
+			this.portsFournis.add(pc);
+			this.tags.add(pc.getName());
+		}
 	}
 	
 	public void addPort(PortConfigRequis pc) {
-		this.portsRequis.add(pc);
+		if(this.tags.contains(pc.getName())) {
+			Trace.printError("Tag " + pc.getName() + " is not available, service as not been created");
+		}
+		else {
+			this.portsRequis.add(pc);
+			this.tags.add(pc.getName());
+		}
 	}
 	
 	// Attach (2)
 	
 	public Attachment addLink(String name, RoleFrom r, PortFourni p) {
-		Attachment a = new Attachment(name, this);
-		a.bind(r, p);
-		this.attachments.add(a);
+		Attachment a = null;
+		if(this.tags.contains(name)) {
+			Trace.printError("Tag " + name + " is not available, service as not been created");
+		}
+		else {
+			a = new Attachment(name, this);
+			a.bind(r, p);
+			this.attachments.add(a);
+			this.tags.add(a.getName());
+		}
 		return a;
 	}
 	
 	public Attachment addLink(String name, RoleTo r, PortRequis p) {
-		Attachment a = new Attachment(name, this);
-		a.bind(r, p);
-		this.attachments.add(a);
+		Attachment a = null;
+		if(this.tags.contains(name)) {
+			Trace.printError("Tag " + name + " is not available, service as not been created");
+		}
+		else {
+			a = new Attachment(name, this);
+			a.bind(r, p);
+			this.attachments.add(a);
+			this.tags.add(a.getName());
+		}
 		return a;
 	}
 	
@@ -99,53 +129,105 @@ public class Configuration {
 	// Bindings (4)
 	
 	public Binding addLink(String name, RoleFrom r, PortConfigFourni p) {
-		Binding b = new Binding(name, this);
-		b.bind(r, p);
-		this.bindings.add(b);
+		Binding b = null;
+
+		if(this.tags.contains(name)) {
+			Trace.printError("Tag " + name + " is not available, service as not been created");
+		}
+		else {
+			b = new Binding(name, this);
+			b.bind(r, p);
+			this.bindings.add(b);
+			this.tags.add(b.getName());
+		}
 		return b;
 	}
 	
 	public Binding addLink(String name, RoleTo r, PortConfigRequis p) {
-		Binding b = new Binding(name, this);
-		b.bind(r, p);
-		this.bindings.add(b);
+		Binding b = null;
+
+		if(this.tags.contains(name)) {
+			Trace.printError("Tag " + name + " is not available, service as not been created");
+		}
+		else {
+			b = new Binding(name, this);
+			b.bind(r, p);
+			this.bindings.add(b);
+			this.tags.add(b.getName());
+		}
 		return b;
+		
 	}
 	
 	public Binding addLink(String name, PortConfigRequis pc, PortRequis p) {
-		Binding b = new Binding(name, this);
-		b.bind(pc, p);
-		this.bindings.add(b);
+		Binding b = null;
+
+		if(this.tags.contains(name)) {
+			Trace.printError("Tag " + name + " is not available, service as not been created");
+		}
+		else {
+			b = new Binding(name, this);
+			b.bind(pc, p);
+			this.bindings.add(b);
+			this.tags.add(b.getName());
+		}
 		return b;
 	}
 	
 	public Binding addLink(String name, PortConfigFourni pc, PortFourni p) {
-		Binding b = new Binding(name, this);
-		b.bind(pc, p);
-		this.bindings.add(b);
+		Binding b = null;
+
+		if(this.tags.contains(name)) {
+			Trace.printError("Tag " + name + " is not available, service as not been created");
+		}
+		else {
+			b = new Binding(name, this);
+			b.bind(pc, p);
+			this.bindings.add(b);
+			this.tags.add(b.getName());
+		}
 		return b;
 	}
 	
 	
 	// Links management
+	
+	public void callAttachments(Interface sender, String message) {
 
-	public void notifyActivation(Object sender, String message) {		
-		ArrayList<Object> receiver = new ArrayList<Object>();
+		ArrayList<Interface> receiver = new ArrayList<Interface>();
 		
 		// Find all receiver in attachments list
 		Iterator<Attachment> itAttach = this.attachments.iterator();
 		while(itAttach.hasNext()) {
-			receiver.add(itAttach.next().getReceiver(sender));
+			Interface dest = itAttach.next().getReceiver(sender);
+			if(dest != null) {
+				receiver.add(dest);
+			}
 		}
+		
+		// Activate all receivers
+		Iterator<Interface> itIface = receiver.iterator();
+		while(itIface.hasNext()) {
+			Interface dest = itIface.next();
+			dest.activate(message);
+		}
+	}
+	
+	public void callBindings(Object sender, String message) {
 
-		// Find all receiver in bindings list
+		ArrayList<Interface> receiver = new ArrayList<Interface>();
+		
+		// Find all receiver in attachments list
 		Iterator<Binding> itBind = this.bindings.iterator();
 		while(itBind.hasNext()) {
 			receiver.add(itBind.next().getReceiver(sender));
 		}
 		
 		// Activate all receivers
-		
+		Iterator<Interface> itIface = receiver.iterator();
+		while(itIface.hasNext()) {
+			itIface.next().activate(message);
+		}
 	}
-	
+
 }

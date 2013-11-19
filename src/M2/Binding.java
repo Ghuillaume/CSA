@@ -79,7 +79,7 @@ public class Binding {
 	}
 
 
-	public Object getReceiver(Object sender) {
+	public Interface getReceiver(Object sender) {
 		
 		if(isBindingComponent) {
 			// b & c

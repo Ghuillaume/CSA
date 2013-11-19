@@ -26,31 +26,7 @@ public class Application {
 		
 		// Request
 		client.sendRequest("test");
-
-		/*Configuration config = new Configuration("Test config");
 		
-		// Server
-		Composant server = new ServerComponent("Serveur");
-		server.addPort(new PortRequis("ReceiveRequest"));
-		config.addComponent(server);
-		
-		
-		// Client
-		Composant client = new Composant("Client", config);
-		client.addPort(new PortFourni("SendRequest"));
-		config.addComponent(client);
-		
-		
-		// Connector
-		Connecteur RPC = new Connecteur("RPC", config);
-		RPC.addRole(new RoleFrom("clientCaller"));
-		RPC.addRole(new RoleTo("serverCalled"));
-		config.addConnector(RPC);
-		
-		
-		// Binds
-		config.addLink("ClientToRPC", RPC.getRoleTo("serverCalled"), server.getPortR("ReceiveRequest"));
-		config.addLink("RPCToServer", RPC.getRoleFrom("clientCaller"), client.getPortF("SendRequest"));*/
 	}
 
 }

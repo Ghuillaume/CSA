@@ -7,34 +7,39 @@ public class Connecteur extends Element {
 	
 	// TODO Glue
 
-	private HashMap<String,RoleFrom> rolesF;
-	private HashMap<String,RoleTo> rolesT;
-	private Configuration configuration;
+	private HashMap<String, RoleFrom> rolesF;
+	private HashMap<String, RoleTo> rolesT;
+	private Glue glue;
+	private Configuration parent;
 	
 	
 	public Connecteur(String name, Configuration parent) {
 		super(name);
-		configuration = null;
-		this.rolesT = new HashMap<String,RoleTo>();
-		this.rolesF = new HashMap<String,RoleFrom>();
+		this.rolesT = new HashMap<String, RoleTo>();
+		this.rolesF = new HashMap<String, RoleFrom>();
+		this.glue = new Glue();
 		
-		this.configuration = parent;
+		this.parent = parent;
+	}
+	
+	// run
+	
+	public void run(Role sender, String message) {
+		this.glue.bind(sender, message);
 	}
 	
 	public Configuration getParent() {
-		return this.configuration;
+		return this.parent;
 	}
 
 	public void addConfiguration(Configuration config) {
-		this.configuration = config;
+		this.parent = config;
 	}
 	
-	public void addRole(RoleFrom r) {
-		this.rolesF.put(r.getName(), r);
-	}
-	
-	public void addRole(RoleTo r) {
-		this.rolesT.put(r.getName(), r);
+	public void addConnectedRoles(RoleFrom rf, RoleTo rt) {
+		this.rolesF.put(rf.getName(), rf);
+		this.rolesT.put(rt.getName(), rt);
+		this.glue.addConnection(rf, rt);
 	}
 	
 	
