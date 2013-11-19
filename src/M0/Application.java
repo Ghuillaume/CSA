@@ -8,7 +8,11 @@ public class Application {
 
 	public static void main(String[] args) {
 		
-		// Config
+		// TODO : essayer de foutre les liens dans la création des composants/confs/connecteurs
+		
+		/*********************
+		 * MAIN CONFIGURATION
+		 *********************/
 		ClientServerConfiguration mainConfig = new ClientServerConfiguration("Client-Server-Config");
 		
 		// Components
@@ -24,6 +28,23 @@ public class Application {
 		mainConfig.addLink("ServerToRPC", RPC.getRoleFrom("ServerCaller"), server.getPortF("AnswerRequest"));
 		mainConfig.addLink("RPCToServer", RPC.getRoleTo("ServerCalled"), server.getPortR("ReceiveRequest"));
 		
+		
+		/*******************************
+		 * SERVER DETAILS CONFIGURATION
+		 *******************************/
+		ServerDetailsConfiguration serverConfig = new ServerDetailsConfiguration("Server-details-Config");
+		serverConfig.addPort(new PortConfigFourni("AnswerRequestPortConfig", serverConfig));
+		serverConfig.addPort(new PortConfigRequis("ReceiveRequestPortConfig", serverConfig));
+		server.setSubconf(serverConfig);
+		
+		// Bindings
+		mainConfig.addLink("ServerToSubConf", serverConfig.getPortR("ReceiveRequestPortConfig"), server.getPortR("ReceiveRequest"));
+		mainConfig.addLink("SubConfToServer", serverConfig.getPortR("AnswerRequestPortConfig"), server.getPortR("AnswerRequest"));
+		
+		
+		/**************************
+		 * RUNNING THE APPLICATION
+		 **************************/
 		// Request
 		client.sendRequest("test");
 		

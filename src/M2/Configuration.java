@@ -1,6 +1,7 @@
 package M2;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 
 import M0.Trace;
@@ -13,8 +14,8 @@ public class Configuration extends Element {
 	private ArrayList<Binding> bindings;
 	private ArrayList<ServiceConfig> servicesRequis;
 	private ArrayList<ServiceConfig> servicesFournis;
-	private ArrayList<PortConfig> portsRequis;
-	private ArrayList<PortConfig> portsFournis;
+	private HashMap<String, PortConfigRequis> portsRequis;
+	private HashMap<String, PortConfigFourni> portsFourni;
 	
 	private ArrayList<String> tags;
 	
@@ -29,8 +30,8 @@ public class Configuration extends Element {
 		this.bindings = new ArrayList<Binding>();
 		this.servicesRequis = new ArrayList<ServiceConfig>();
 		this.servicesFournis = new ArrayList<ServiceConfig>();
-		this.portsRequis = new ArrayList<PortConfig>();
-		this.portsFournis = new ArrayList<PortConfig>();
+		this.portsRequis = new HashMap<String, PortConfigRequis>();
+		this.portsFourni = new HashMap<String, PortConfigFourni>();
 		this.tags = new ArrayList<String>();
 	}
 	
@@ -80,7 +81,7 @@ public class Configuration extends Element {
 			Trace.printError("Tag " + pc.getName() + " is not available, service as not been created");
 		}
 		else {
-			this.portsFournis.add(pc);
+			this.portsFourni.put(pc.getName(), pc);
 			this.tags.add(pc.getName());
 		}
 	}
@@ -90,12 +91,27 @@ public class Configuration extends Element {
 			Trace.printError("Tag " + pc.getName() + " is not available, service as not been created");
 		}
 		else {
-			this.portsRequis.add(pc);
+			this.portsRequis.put(pc.getName(), pc);
 			this.tags.add(pc.getName());
 		}
 	}
 	
-	// Attach (2)
+	
+	// Getters
+
+	public PortConfigRequis getPortR(String name) {
+		return this.portsRequis.get(name);
+	}
+	
+	public PortConfigFourni getPortF(String name) {
+		return this.portsFourni.get(name);
+	}
+	
+	
+	
+	// TODO : vérifier si les roles et ports appartiennent bien à la config à chaque ajout de lien
+	
+	// Attachments (2)
 	
 	public Attachment addLink(String name, RoleFrom r, PortFourni p) {
 		Attachment a = null;
@@ -187,6 +203,16 @@ public class Configuration extends Element {
 			this.tags.add(b.getName());
 		}
 		return b;
+	}
+	
+	public void addLink(Binding b) {
+		if(this.tags.contains(b.getName())) {
+			Trace.printError("Binding already added or name already picked");
+		}
+		else {
+			this.bindings.add(b);
+			this.tags.add(b.getName());
+		}
 	}
 	
 	
