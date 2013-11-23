@@ -1,5 +1,7 @@
 package M2;
 
+import M0.Trace;
+
 public class Binding {
 
 	private String name;
@@ -34,28 +36,33 @@ public class Binding {
 
 	public Interface getReceiver(Interface sender) {
 		
-		if(sender instanceof PortConfig) {
-			if(((PortConfig)sender).getName().equals(this.sideA.getName())) {
-				return this.sideB;
-			}
-			else if(((PortConfig)sender).getName().equals(this.sideB.getName())) {
-				return this.sideA;
-			}
+		if(this.sideA == null || this.sideB == null) {
+			Trace.printError("Binding " + this.name + " isn't well formed");
 		}
-		else if(sender instanceof Port) {
-			if(((Port)sender).getName().equals(this.sideA.getName())) {
-				return this.sideB;
+		else {
+			if(sender instanceof PortConfig) {
+				if(((PortConfig)sender).getName().equals(this.sideA.getName())) {
+					return this.sideB;
+				}
+				else if(((PortConfig)sender).getName().equals(this.sideB.getName())) {
+					return this.sideA;
+				}
 			}
-			else if(((Port)sender).getName().equals(this.sideB.getName())) {
-				return this.sideA;
+			else if(sender instanceof Port) {
+				if(((Port)sender).getName().equals(this.sideA.getName())) {
+					return this.sideB;
+				}
+				else if(((Port)sender).getName().equals(this.sideB.getName())) {
+					return this.sideA;
+				}
 			}
-		}
-		else if(sender instanceof Role) {
-			if(((Role)sender).getName().equals(this.sideA.getName())) {
-				return this.sideB;
-			}
-			else if(((Role)sender).getName().equals(this.sideB.getName())) {
-				return this.sideA;
+			else if(sender instanceof Role) {
+				if(((Role)sender).getName().equals(this.sideA.getName())) {
+					return this.sideB;
+				}
+				else if(((Role)sender).getName().equals(this.sideB.getName())) {
+					return this.sideA;
+				}
 			}
 		}
 	

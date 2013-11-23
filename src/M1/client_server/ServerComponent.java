@@ -4,8 +4,6 @@ import M0.Trace;
 import M2.Composant;
 import M2.Configuration;
 import M2.Port;
-import M2.PortFourni;
-import M2.PortRequis;
 
 public class ServerComponent extends Composant {
 

@@ -3,8 +3,6 @@ package M1.client_server;
 import M0.Trace;
 import M2.Composant;
 import M2.Configuration;
-import M2.PortFourni;
-import M2.PortRequis;
 
 public class ClientComponent extends Composant {
 

@@ -9,10 +9,11 @@ public class PortConfigRequis extends PortConfig {
 	}
 
 	@Override
-	public void activate(String message) {
+	public final void activate(String message) {
 		Trace.printMessage("In " + this.getParent().getName() + " : "
 				+ this.getName() + " (" + this.getClass().getSuperclass().getSimpleName() 
 				+ ") received message : " + message);
-		
+
+		this.getConfig().callBindings(this, message);
 	}
 }

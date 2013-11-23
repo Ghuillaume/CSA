@@ -116,6 +116,7 @@ public class Configuration extends Element {
 		return this.portsFourni.get(name);
 	}
 	
+	
 	public Composant getComposant(String name) {
 		Iterator<Composant> it = this.components.iterator();
 		while(it.hasNext()) {
@@ -209,8 +210,14 @@ public class Configuration extends Element {
 	
 	public Binding addLink(String name, PortConfigRequis pc, PortRequis p) {
 		Binding b = null;
-
-		if(this.tags.contains(name)) {
+		
+		if(pc == null) {
+			Trace.printError("While trying to bind, portConfigRequis is null");
+		}
+		else if(p == null) {
+			Trace.printError("While trying to bind, portRequis is null");
+		}
+		else if(this.tags.contains(name)) {
 			Trace.printError("Tag " + name + " is not available, service as not been created");
 		}
 		else {
@@ -272,13 +279,35 @@ public class Configuration extends Element {
 	}
 	
 	public void callBindings(Interface sender, String message) {
+		
+		// TODO
+		// si portconfigrequis, les destinataires ne sont que ceux qui sont au niveau du dessous
+		// si portconfigfourni, que au dessus
 
 		ArrayList<Interface> receiver = new ArrayList<Interface>();
 		
-		// Find all receiver in attachments list
+		// Find all receiver in bindings list
 		Iterator<Binding> itBind = this.bindings.iterator();
 		while(itBind.hasNext()) {
-			receiver.add(itBind.next().getReceiver(sender));
+			Interface rec = itBind.next().getReceiver(sender);
+			if(rec != null) {
+				
+				boolean wrongWay = false;
+				if(sender instanceof PortConfigRequis && sender.getConfig().getParent() != null) {
+					if(sender.getConfig().getParent().equals(rec.getConfig())) {
+						wrongWay = true;
+					}
+				}
+				if(sender instanceof PortConfigFourni && rec.getConfig().getParent() != null) {
+					if(sender.getConfig().equals(rec.getConfig().getParent())) {
+						wrongWay = true;
+					}
+				}
+				
+				if(!wrongWay) {
+					receiver.add(rec);
+				}
+			}
 		}
 		
 		// Activate all receivers
