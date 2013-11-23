@@ -14,6 +14,6 @@ public abstract class Role extends Interface {
 	}
 	
 	public Configuration getConfig() {
-		return this.parent.getParent();
+		return (Configuration)this.parent.getParent();
 	}
 }

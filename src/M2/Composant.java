@@ -51,5 +51,12 @@ public class Composant extends Element {
 	public ServiceFourni getServiceF(String name) {
 		return this.servicesF.get(name);
 	}
+	
+	
+	// run
+	
+	public void run(Port sender, String message) {
+		// Pas de traitement par défaut
+	}
 
 }

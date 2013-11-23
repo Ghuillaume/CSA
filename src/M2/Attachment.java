@@ -4,21 +4,16 @@ package M2;
 public class Attachment {
 
 	private String name;
-	private Role a;
-	private Port b;
+	private Interface sideA;
+	private Interface sideB;
 	
 	public Attachment(String name) {
 		this.name = name;
 	}
-	
-	public void bind(RoleFrom r, PortFourni p) {
-		this.a = r;
-		this.b = p;
-	}
-	
-	public void bind(RoleTo r, PortRequis p) {
-		this.a = r;
-		this.b = p;
+
+	public void bind(Interface a, Interface b) {
+		this.sideA = a;
+		this.sideB = b;
 	}
 	
 	
@@ -34,23 +29,21 @@ public class Attachment {
 		this.name = name;
 	}
 
-	public Role getSource() {
-		return a;
-	}
-
-	public Port getDestination() {
-		return b;
-	}
-
 	public Interface getReceiver(Interface sender) {
 		if(sender instanceof Role) {
-			if(((Role)sender).getName().equals(this.a.getName())) {
-				return this.b;
+			if(((Role)sender).getName().equals(this.sideA.getName())) {
+				return this.sideB;
+			}
+			else if(((Role)sender).getName().equals(this.sideB.getName())) {
+				return this.sideA;
 			}
 		}
 		else if(sender instanceof Port) {
-			if(((Port)sender).getName().equals(this.b.getName())) {
-				return this.a;
+			if(((Port)sender).getName().equals(this.sideA.getName())) {
+				return this.sideB;
+			}
+			else if(((Port)sender).getName().equals(this.sideB.getName())) {
+				return this.sideA;
 			}
 		}
 		return null;

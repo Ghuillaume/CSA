@@ -19,18 +19,24 @@ public class Connecteur extends Element {
 		this.glue = new Glue();
 	}
 	
-	// run
-	
-	public void run(Role sender, String message) {
-		this.glue.bind(sender, message);
-	}
-	
 	public void addConnectedRoles(RoleFrom rf, RoleTo rt) {
 		this.rolesF.put(rf.getName(), rf);
 		this.rolesT.put(rt.getName(), rt);
 		this.glue.addConnection(rf, rt);
 	}
+
 	
+	// run
+	
+	public final void run(Role sender, String message) {
+		// TODO si pas composite, pas appeler la glue et exécuter au niveau du dessous
+		//if(this.subConfiguration == null) {
+			this.glue.bind(sender, message);
+		/*}
+		else {
+			this.getParent().callBindings(sender, message);
+		}*/
+	}
 	
 	/*
 	 * GETTERS

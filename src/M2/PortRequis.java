@@ -14,7 +14,8 @@ public class PortRequis extends Port {
 				+ this.getName() + " (" + this.getClass().getSuperclass().getSimpleName() 
 				+ ") received message : " + message);
 		
-		this.getConfig().callBindings(this, message);
+		this.parent.run(this, message);
+		//this.getConfig().callBindings(this, message);
 	}
 
 

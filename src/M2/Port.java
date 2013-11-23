@@ -1,6 +1,5 @@
 package M2;
 
-import M0.Trace;
 
 public abstract class Port extends Interface {
 
@@ -16,6 +15,6 @@ public abstract class Port extends Interface {
 	}
 	
 	public Configuration getConfig() {
-		return this.parent.getParent();
+		return (Configuration)this.parent.getParent();
 	}
 }

@@ -40,6 +40,10 @@ public class Configuration extends Element {
 		this.subConfiguration = null;
 	}
 	
+	public void setParent(Element parent) {
+		this.parent = parent;
+	}
+	
 	public void addComponent(Composant c) {
 		if(this.tags.contains(c.getName())) {
 			Trace.printError("Tag " + c.getName() + " is not available, component as not been created");
@@ -112,6 +116,29 @@ public class Configuration extends Element {
 		return this.portsFourni.get(name);
 	}
 	
+	public Composant getComposant(String name) {
+		Iterator<Composant> it = this.components.iterator();
+		while(it.hasNext()) {
+			Composant currentComponent = it.next();
+			if(currentComponent.getName().equals(name)) {
+				return currentComponent;
+			}
+		}
+		
+		return null;
+	}
+	
+	public Connecteur getConnector(String name) {
+		Iterator<Connecteur> it = this.connectors.iterator();
+		while(it.hasNext()) {
+			Connecteur currentConnector = it.next();
+			if(currentConnector.getName().equals(name)) {
+				return currentConnector;
+			}
+		}
+		
+		return null;
+	}
 	
 	
 	// TODO : vérifier si les roles et ports appartiennent bien à la config à chaque ajout de lien

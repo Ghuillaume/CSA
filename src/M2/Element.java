@@ -5,9 +5,9 @@ public abstract class Element {
 	protected String name;
 	
 	protected Configuration subConfiguration;
-	protected Configuration parent;
+	protected Element parent;
 	
-	public Element(String name, Configuration parent) {
+	public Element(String name, Element parent) {
 		this.name = name;
 		this.parent = parent;
 	}
@@ -20,7 +20,7 @@ public abstract class Element {
 		return this.name;
 	}
 	
-	public Configuration getParent() {
+	public Element getParent() {
 		return this.parent;
 	}
 }

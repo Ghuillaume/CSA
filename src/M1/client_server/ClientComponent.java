@@ -14,6 +14,7 @@ public class ClientComponent extends Composant {
 		config.addComponent(this);
 		this.addPort(new SendRequestPort("SendRequest", this));
 		this.addPort(new ReceiveAnswerPort("ReceiveAnswer", this));
+		this.addService(new SendRequestService("SendRequestService", this));
 	}
 
 
