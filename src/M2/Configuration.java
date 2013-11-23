@@ -22,7 +22,7 @@ public class Configuration extends Element {
 	
 	
 	public Configuration(String name) {
-		super(name);
+		super(name, null);
 		
 		this.components = new ArrayList<Composant>();
 		this.connectors = new ArrayList<Connecteur>();
@@ -33,6 +33,11 @@ public class Configuration extends Element {
 		this.portsRequis = new HashMap<String, PortConfigRequis>();
 		this.portsFourni = new HashMap<String, PortConfigFourni>();
 		this.tags = new ArrayList<String>();
+	}
+	
+	public void setSubconf(Configuration subconf) {
+		// Une configuration n'a pas de sous-configuration
+		this.subConfiguration = null;
 	}
 	
 	public void addComponent(Composant c) {
@@ -119,7 +124,7 @@ public class Configuration extends Element {
 			Trace.printError("Tag " + name + " is not available, service as not been created");
 		}
 		else {
-			a = new Attachment(name, this);
+			a = new Attachment(name);
 			a.bind(r, p);
 			this.attachments.add(a);
 			this.tags.add(a.getName());
@@ -133,7 +138,7 @@ public class Configuration extends Element {
 			Trace.printError("Tag " + name + " is not available, service as not been created");
 		}
 		else {
-			a = new Attachment(name, this);
+			a = new Attachment(name);
 			a.bind(r, p);
 			this.attachments.add(a);
 			this.tags.add(a.getName());
@@ -151,7 +156,7 @@ public class Configuration extends Element {
 			Trace.printError("Tag " + name + " is not available, service as not been created");
 		}
 		else {
-			b = new Binding(name, this);
+			b = new Binding(name);
 			b.bind(r, p);
 			this.bindings.add(b);
 			this.tags.add(b.getName());
@@ -166,7 +171,7 @@ public class Configuration extends Element {
 			Trace.printError("Tag " + name + " is not available, service as not been created");
 		}
 		else {
-			b = new Binding(name, this);
+			b = new Binding(name);
 			b.bind(r, p);
 			this.bindings.add(b);
 			this.tags.add(b.getName());
@@ -182,7 +187,7 @@ public class Configuration extends Element {
 			Trace.printError("Tag " + name + " is not available, service as not been created");
 		}
 		else {
-			b = new Binding(name, this);
+			b = new Binding(name);
 			b.bind(pc, p);
 			this.bindings.add(b);
 			this.tags.add(b.getName());
@@ -197,7 +202,7 @@ public class Configuration extends Element {
 			Trace.printError("Tag " + name + " is not available, service as not been created");
 		}
 		else {
-			b = new Binding(name, this);
+			b = new Binding(name);
 			b.bind(pc, p);
 			this.bindings.add(b);
 			this.tags.add(b.getName());
@@ -239,7 +244,7 @@ public class Configuration extends Element {
 		}
 	}
 	
-	public void callBindings(Object sender, String message) {
+	public void callBindings(Interface sender, String message) {
 
 		ArrayList<Interface> receiver = new ArrayList<Interface>();
 		

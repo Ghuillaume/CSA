@@ -1,6 +1,5 @@
 package M2;
 
-import java.util.Collection;
 
 public class Attachment {
 
@@ -8,11 +7,8 @@ public class Attachment {
 	private Role a;
 	private Port b;
 	
-	private Configuration config;
-	
-	public Attachment(String name, Configuration config) {
+	public Attachment(String name) {
 		this.name = name;
-		this.config = config;
 	}
 	
 	public void bind(RoleFrom r, PortFourni p) {
@@ -46,7 +42,7 @@ public class Attachment {
 		return b;
 	}
 
-	public Interface getReceiver(Object sender) {
+	public Interface getReceiver(Interface sender) {
 		if(sender instanceof Role) {
 			if(((Role)sender).getName().equals(this.a.getName())) {
 				return this.b;

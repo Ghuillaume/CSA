@@ -10,30 +10,19 @@ public class Connecteur extends Element {
 	private HashMap<String, RoleFrom> rolesF;
 	private HashMap<String, RoleTo> rolesT;
 	private Glue glue;
-	private Configuration parent;
 	
 	
 	public Connecteur(String name, Configuration parent) {
-		super(name);
+		super(name, parent);
 		this.rolesT = new HashMap<String, RoleTo>();
 		this.rolesF = new HashMap<String, RoleFrom>();
 		this.glue = new Glue();
-		
-		this.parent = parent;
 	}
 	
 	// run
 	
 	public void run(Role sender, String message) {
 		this.glue.bind(sender, message);
-	}
-	
-	public Configuration getParent() {
-		return this.parent;
-	}
-
-	public void addConfiguration(Configuration config) {
-		this.parent = config;
 	}
 	
 	public void addConnectedRoles(RoleFrom rf, RoleTo rt) {

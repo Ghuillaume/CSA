@@ -1,6 +1,5 @@
 package M2;
 
-import M0.Trace;
 
 public abstract class Interface {
 
@@ -19,12 +18,4 @@ public abstract class Interface {
 	public abstract Element getParent();
 	
 	public abstract void activate(String message);
-	
-	/*public void notifyIface(String message) {
-		Trace.printMessage("In " + this.getParent().getName() + " : "
-				+ this.getName() + " (" + this.getClass().getSuperclass().getSimpleName() 
-				+ ") received message : " + message);
-		
-		this.activate(message);
-	}*/
 }
