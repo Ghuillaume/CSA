@@ -149,7 +149,7 @@ public class Configuration extends Element {
 			Trace.printError("Tag " + name + " is not available, service as not been created");
 		}
 		else {
-			if (r.getConfig() == this && p.getConfig() == this) {
+			if (r.getConfig().equals(this) && p.getConfig().equals(this)) {
 				a = new Attachment(name);
 				a.bind(r, p);
 				this.attachments.add(a);
