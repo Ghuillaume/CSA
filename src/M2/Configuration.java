@@ -141,9 +141,6 @@ public class Configuration extends Element {
 		return null;
 	}
 	
-	
-	// TODO : vérifier si les roles et ports appartiennent bien à la config à chaque ajout de lien
-	
 	// Attachments (2)
 	
 	public Attachment addLink(String name, RoleFrom r, PortFourni p) {
@@ -152,10 +149,12 @@ public class Configuration extends Element {
 			Trace.printError("Tag " + name + " is not available, service as not been created");
 		}
 		else {
-			a = new Attachment(name);
-			a.bind(r, p);
-			this.attachments.add(a);
-			this.tags.add(a.getName());
+			if (r.getConfig() == this && p.getConfig() == this) {
+				a = new Attachment(name);
+				a.bind(r, p);
+				this.attachments.add(a);
+				this.tags.add(a.getName());
+			}
 		}
 		return a;
 	}
