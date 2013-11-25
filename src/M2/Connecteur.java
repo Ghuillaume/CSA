@@ -22,18 +22,22 @@ public class Connecteur extends Element {
 		this.rolesT.put(rt.getName(), rt);
 		this.glue.addConnection(rf, rt);
 	}
+	
+	public void setGlue(Glue glue) {
+		this.glue = glue;
+	}
 
 	
 	// run
 	
 	public final void run(Role sender, String message) {
-		// TODO si pas composite, pas appeler la glue et exécuter au niveau du dessous
-		//if(this.subConfiguration == null) {
+		// si pas composite, pas appeler la glue et exécuter au niveau du dessous
+		if(this.subConfiguration == null) {
 			this.glue.bind(sender, message);
-		/*}
+		}
 		else {
-			this.getParent().callBindings(sender, message);
-		}*/
+			((Configuration)this.getParent()).callBindings(sender, message);
+		}
 	}
 	
 	/*

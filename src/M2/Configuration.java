@@ -20,7 +20,6 @@ public class Configuration extends Element {
 	private ArrayList<String> tags;
 	
 	
-	
 	public Configuration(String name) {
 		super(name, null);
 		
@@ -321,7 +320,7 @@ public class Configuration extends Element {
 				// L'activation d'un port requis n'est redirigée vers une config que si elle est de niveau inférieur (le message entre)
 				// On interdit donc la redirection vers une config de même niveau
 				if(sender.getConfig().equals(rec.getConfig())) {
-					if(sender instanceof PortRequis && rec instanceof PortConfigRequis) {
+					if((sender instanceof PortRequis || sender instanceof RoleTo) && rec instanceof PortConfigRequis) {
 						wrongWay = true;
 					}
 				}
@@ -329,7 +328,7 @@ public class Configuration extends Element {
 				// L'activation d'un port fourni n'est redirigée vers une config que si elle est de même niveau (le message sort)
 				// On interdit donc la redirection vers une config de niveau inférieur
 				else {
-					if(sender instanceof PortFourni && rec instanceof PortConfigFourni) {
+					if((sender instanceof PortFourni || sender instanceof RoleFrom) && rec instanceof PortConfigFourni) {
 						wrongWay = true;
 					}
 				}
