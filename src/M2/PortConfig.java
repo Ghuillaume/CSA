@@ -9,11 +9,11 @@ public abstract class PortConfig extends Interface {
 		this.parent = config;
 	}
 	
-	public Configuration getConfig() {
+	public final Configuration getConfig() {
 		return this.parent;
 	}
 	
-	public Configuration getParent() {
+	public final Configuration getParent() {
 		return this.parent;
 	}
 }

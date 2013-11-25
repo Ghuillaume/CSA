@@ -5,11 +5,9 @@ import java.util.HashMap;
 
 public class Connecteur extends Element {
 	
-	// TODO Glue
-
-	private HashMap<String, RoleFrom> rolesF;
-	private HashMap<String, RoleTo> rolesT;
-	private Glue glue;
+	protected HashMap<String, RoleFrom> rolesF;
+	protected HashMap<String, RoleTo> rolesT;
+	protected Glue glue;
 	
 	
 	public Connecteur(String name, Configuration parent) {
@@ -19,7 +17,7 @@ public class Connecteur extends Element {
 		this.glue = new Glue();
 	}
 	
-	public void addConnectedRoles(RoleFrom rf, RoleTo rt) {
+	public final void addConnectedRoles(RoleFrom rf, RoleTo rt) {
 		this.rolesF.put(rf.getName(), rf);
 		this.rolesT.put(rt.getName(), rt);
 		this.glue.addConnection(rf, rt);
@@ -42,11 +40,11 @@ public class Connecteur extends Element {
 	 * GETTERS
 	 */
 
-	public RoleFrom getRoleFrom(String name) {
+	public final RoleFrom getRoleFrom(String name) {
 		return this.rolesF.get(name);
 	}
 	
-	public RoleTo getRoleTo(String name) {
+	public final RoleTo getRoleTo(String name) {
 		return this.rolesT.get(name);
 	}
 }

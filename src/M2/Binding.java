@@ -4,9 +4,9 @@ import M0.Trace;
 
 public class Binding {
 
-	private String name;
-	private Interface sideA;
-	private Interface sideB;
+	protected String name;
+	protected Interface sideA;
+	protected Interface sideB;
 	
 	
 
@@ -15,7 +15,7 @@ public class Binding {
 	}
 
 	
-	public void bind(Interface a, Interface b) {
+	public final void bind(Interface a, Interface b) {
 		this.sideA = a;
 		this.sideB = b;
 	}
@@ -34,7 +34,7 @@ public class Binding {
 	}
 
 
-	public Interface getReceiver(Interface sender) {
+	public final Interface getReceiver(Interface sender) {
 		
 		if(this.sideA == null || this.sideB == null) {
 			Trace.printError("Binding " + this.name + " isn't well formed");

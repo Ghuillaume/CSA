@@ -9,11 +9,11 @@ public abstract class ServiceConfig extends Interface {
 		this.parent = config;
 	}
 	
-	public Configuration getParent() {
+	public final Configuration getParent() {
 		return this.parent;
 	}
 	
-	public Configuration getConfig() {
+	public final Configuration getConfig() {
 		return this.parent;
 	}
 }

@@ -8,14 +8,14 @@ import M0.Trace;
 
 public class Configuration extends Element {
 
-	private ArrayList<Composant> components;
-	private ArrayList<Connecteur> connectors;
-	private ArrayList<Attachment> attachments;
-	private ArrayList<Binding> bindings;
-	private ArrayList<ServiceConfig> servicesRequis;
-	private ArrayList<ServiceConfig> servicesFournis;
-	private HashMap<String, PortConfigRequis> portsRequis;
-	private HashMap<String, PortConfigFourni> portsFourni;
+	protected ArrayList<Composant> components;
+	protected ArrayList<Connecteur> connectors;
+	protected ArrayList<Attachment> attachments;
+	protected ArrayList<Binding> bindings;
+	protected ArrayList<ServiceConfig> servicesRequis;
+	protected ArrayList<ServiceConfig> servicesFournis;
+	protected HashMap<String, PortConfigRequis> portsRequis;
+	protected HashMap<String, PortConfigFourni> portsFourni;
 	
 	private ArrayList<String> tags;
 	
@@ -35,16 +35,16 @@ public class Configuration extends Element {
 		this.tags = new ArrayList<String>();
 	}
 	
-	public void setSubconf(Configuration subconf) {
+	public final void setSubconf(Configuration subconf) {
 		// Une configuration n'a pas de sous-configuration
 		this.subConfiguration = null;
 	}
 	
-	public void setParent(Element parent) {
+	public final void setParent(Element parent) {
 		this.parent = parent;
 	}
 	
-	public void addComponent(Composant c) {
+	public final void addComponent(Composant c) {
 		if(this.tags.contains(c.getName())) {
 			Trace.printError("Tag " + c.getName() + " is not available, component as not been created");
 		}
@@ -54,7 +54,7 @@ public class Configuration extends Element {
 		}
 	}
 	
-	public void addConnector(Connecteur c) {
+	public final void addConnector(Connecteur c) {
 		if(this.tags.contains(c.getName())) {
 			Trace.printError("Tag " + c.getName() + " is not available, connector as not been created");
 		}
@@ -64,7 +64,7 @@ public class Configuration extends Element {
 		}
 	}
 	
-	public void addService(ServiceConfigFourni sc) {
+	public final void addService(ServiceConfigFourni sc) {
 		if(this.tags.contains(sc.getName())) {
 			Trace.printError("Tag " + sc.getName() + " is not available, service as not been created");
 		}
@@ -75,7 +75,7 @@ public class Configuration extends Element {
 	}
 	
 	
-	public void addService(ServiceConfigRequis sc) {
+	public final void addService(ServiceConfigRequis sc) {
 		if(this.tags.contains(sc.getName())) {
 			Trace.printError("Tag " + sc.getName() + " is not available, service as not been created");
 		}
@@ -85,7 +85,7 @@ public class Configuration extends Element {
 		}
 	}
 	
-	public void addPort(PortConfigFourni pc) {
+	public final void addPort(PortConfigFourni pc) {
 		if(this.tags.contains(pc.getName())) {
 			Trace.printError("Tag " + pc.getName() + " is not available, service as not been created");
 		}
@@ -95,7 +95,7 @@ public class Configuration extends Element {
 		}
 	}
 	
-	public void addPort(PortConfigRequis pc) {
+	public final void addPort(PortConfigRequis pc) {
 		if(this.tags.contains(pc.getName())) {
 			Trace.printError("Tag " + pc.getName() + " is not available, service as not been created");
 		}
@@ -108,16 +108,16 @@ public class Configuration extends Element {
 	
 	// Getters
 
-	public PortConfigRequis getPortR(String name) {
+	public final PortConfigRequis getPortR(String name) {
 		return this.portsRequis.get(name);
 	}
 	
-	public PortConfigFourni getPortF(String name) {
+	public final PortConfigFourni getPortF(String name) {
 		return this.portsFourni.get(name);
 	}
 	
 	
-	public Composant getComposant(String name) {
+	public final Composant getComposant(String name) {
 		Iterator<Composant> it = this.components.iterator();
 		while(it.hasNext()) {
 			Composant currentComponent = it.next();
@@ -129,7 +129,7 @@ public class Configuration extends Element {
 		return null;
 	}
 	
-	public Connecteur getConnector(String name) {
+	public final Connecteur getConnector(String name) {
 		Iterator<Connecteur> it = this.connectors.iterator();
 		while(it.hasNext()) {
 			Connecteur currentConnector = it.next();
@@ -141,12 +141,26 @@ public class Configuration extends Element {
 		return null;
 	}
 	
+	public final Configuration getParentConfig() {
+		Configuration parentConfig = null;
+		
+		if(this.parent != null) {
+			if(this.parent.getParent() != null) {
+				if(this.parent.getParent() instanceof Configuration) {
+					parentConfig = (Configuration)this.parent.getParent();
+				}
+			}
+		}
+		
+		return parentConfig;
+	}
+	
 	
 	// TODO : vérifier si les roles et ports appartiennent bien à la config à chaque ajout de lien
 	
 	// Attachments (2)
 	
-	public Attachment addLink(String name, RoleFrom r, PortFourni p) {
+	public final Attachment addLink(String name, RoleFrom r, PortFourni p) {
 		Attachment a = null;
 		if(this.tags.contains(name)) {
 			Trace.printError("Tag " + name + " is not available, service as not been created");
@@ -160,7 +174,7 @@ public class Configuration extends Element {
 		return a;
 	}
 	
-	public Attachment addLink(String name, RoleTo r, PortRequis p) {
+	public final Attachment addLink(String name, RoleTo r, PortRequis p) {
 		Attachment a = null;
 		if(this.tags.contains(name)) {
 			Trace.printError("Tag " + name + " is not available, service as not been created");
@@ -177,7 +191,7 @@ public class Configuration extends Element {
 	
 	// Bindings (4)
 	
-	public Binding addLink(String name, RoleFrom r, PortConfigFourni p) {
+	public final Binding addLink(String name, RoleFrom r, PortConfigFourni p) {
 		Binding b = null;
 
 		if(this.tags.contains(name)) {
@@ -192,7 +206,7 @@ public class Configuration extends Element {
 		return b;
 	}
 	
-	public Binding addLink(String name, RoleTo r, PortConfigRequis p) {
+	public final Binding addLink(String name, RoleTo r, PortConfigRequis p) {
 		Binding b = null;
 
 		if(this.tags.contains(name)) {
@@ -208,7 +222,7 @@ public class Configuration extends Element {
 		
 	}
 	
-	public Binding addLink(String name, PortConfigRequis pc, PortRequis p) {
+	public final Binding addLink(String name, PortConfigRequis pc, PortRequis p) {
 		Binding b = null;
 		
 		if(pc == null) {
@@ -229,7 +243,7 @@ public class Configuration extends Element {
 		return b;
 	}
 	
-	public Binding addLink(String name, PortConfigFourni pc, PortFourni p) {
+	public final Binding addLink(String name, PortConfigFourni pc, PortFourni p) {
 		Binding b = null;
 
 		if(this.tags.contains(name)) {
@@ -244,7 +258,7 @@ public class Configuration extends Element {
 		return b;
 	}
 	
-	public void addLink(Binding b) {
+	public final void addLink(Binding b) {
 		if(this.tags.contains(b.getName())) {
 			Trace.printError("Binding already added or name already picked");
 		}
@@ -257,7 +271,7 @@ public class Configuration extends Element {
 	
 	// Links management
 	
-	public void callAttachments(Interface sender, String message) {
+	public final void callAttachments(Interface sender, String message) {
 
 		ArrayList<Interface> receiver = new ArrayList<Interface>();
 		
@@ -278,11 +292,7 @@ public class Configuration extends Element {
 		}
 	}
 	
-	public void callBindings(Interface sender, String message) {
-		
-		// TODO
-		// si portconfigrequis, les destinataires ne sont que ceux qui sont au niveau du dessous
-		// si portconfigfourni, que au dessus
+	public final void callBindings(Interface sender, String message) {
 
 		ArrayList<Interface> receiver = new ArrayList<Interface>();
 		
@@ -291,15 +301,35 @@ public class Configuration extends Element {
 		while(itBind.hasNext()) {
 			Interface rec = itBind.next().getReceiver(sender);
 			if(rec != null) {
-				
+
 				boolean wrongWay = false;
+				
+				// si portconfigrequis, les destinataires ne sont que ceux qui sont au niveau du dessous
 				if(sender instanceof PortConfigRequis && sender.getConfig().getParent() != null) {
-					if(sender.getConfig().getParent().equals(rec.getConfig())) {
+					if(sender.getConfig().getParentConfig().equals(rec.getConfig())) {
 						wrongWay = true;
 					}
 				}
-				if(sender instanceof PortConfigFourni && rec.getConfig().getParent() != null) {
-					if(sender.getConfig().equals(rec.getConfig().getParent())) {
+				
+				// si portconfigfourni, on ne peut aller que au dessus
+				if(sender instanceof PortConfigFourni && rec.getConfig().getParentConfig() != null) {
+					if(!sender.getConfig().equals(rec.getConfig().getParentConfig())) {
+						wrongWay = true;
+					}
+				}
+				
+				// L'activation d'un port requis n'est redirigée vers une config que si elle est de niveau inférieur (le message entre)
+				// On interdit donc la redirection vers une config de même niveau
+				if(sender.getConfig().equals(rec.getConfig())) {
+					if(sender instanceof PortRequis && rec instanceof PortConfigRequis) {
+						wrongWay = true;
+					}
+				}
+				
+				// L'activation d'un port fourni n'est redirigée vers une config que si elle est de même niveau (le message sort)
+				// On interdit donc la redirection vers une config de niveau inférieur
+				else {
+					if(sender instanceof PortFourni && rec instanceof PortConfigFourni) {
 						wrongWay = true;
 					}
 				}
@@ -316,5 +346,26 @@ public class Configuration extends Element {
 			itIface.next().activate(message);
 		}
 	}
+
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Configuration other = (Configuration) obj;
+		if (this.name == null) {
+			if (other.name != null)
+				return false;
+		} else if (!this.name.equals(other.name))
+			return false;
+		return true;
+	}
+	
+	
+	
 
 }

@@ -9,7 +9,7 @@ public class PortFourni extends Port {
 	}
 
 	@Override
-	public final void activate(String message) {
+	public void activate(String message) {
 		Trace.printMessage("In " + this.getParent().getName() + " : "
 				+ this.getName() + " (" + this.getClass().getSuperclass().getSimpleName() 
 				+ ") received message : " + message);

@@ -9,11 +9,11 @@ public abstract class Service extends Interface {
 		this.parent = parent;
 	}
 	
-	public Composant getParent() {
+	public final Composant getParent() {
 		return this.parent;
 	}
 	
-	public Configuration getConfig() {
+	public final Configuration getConfig() {
 		return (Configuration)this.parent.getParent();
 	}
 }

@@ -3,15 +3,15 @@ package M2;
 
 public class Attachment {
 
-	private String name;
-	private Interface sideA;
-	private Interface sideB;
+	protected String name;
+	protected Interface sideA;
+	protected Interface sideB;
 	
 	public Attachment(String name) {
 		this.name = name;
 	}
 
-	public void bind(Interface a, Interface b) {
+	public final void bind(Interface a, Interface b) {
 		this.sideA = a;
 		this.sideB = b;
 	}
@@ -29,7 +29,7 @@ public class Attachment {
 		this.name = name;
 	}
 
-	public Interface getReceiver(Interface sender) {
+	public final Interface getReceiver(Interface sender) {
 		if(sender instanceof Role) {
 			if(((Role)sender).getName().equals(this.sideA.getName())) {
 				return this.sideB;

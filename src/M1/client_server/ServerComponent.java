@@ -10,7 +10,6 @@ public class ServerComponent extends Composant {
 	public ServerComponent(String name, Configuration config) {
 		super(name, config);
 		
-		config.addComponent(this);
 		this.addPort(new AnswerRequestPort("AnswerRequest", this));
 		this.addPort(new ReceiveRequestPort("ReceiveRequest", this));
 	}

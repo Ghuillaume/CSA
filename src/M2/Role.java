@@ -9,11 +9,11 @@ public abstract class Role extends Interface {
 		this.parent = parent;
 	}
 	
-	public Connecteur getParent() {
+	public final Connecteur getParent() {
 		return this.parent;
 	}
 	
-	public Configuration getConfig() {
+	public final Configuration getConfig() {
 		return (Configuration)this.parent.getParent();
 	}
 }

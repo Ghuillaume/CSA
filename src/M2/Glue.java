@@ -6,7 +6,7 @@ import M0.Trace;
 
 public class Glue {
 
-	private HashMap<RoleFrom, RoleTo> connection;
+	protected HashMap<RoleFrom, RoleTo> connection;
 	
 	public Glue() {
 		this.connection = new HashMap<RoleFrom, RoleTo>();
