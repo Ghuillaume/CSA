@@ -7,12 +7,15 @@ public class ServiceFourni extends Service {
 	public ServiceFourni(String name, Composant parent) {
 		super(name, parent);
 	}
+	
+	public void run(String message) {
+		// Pas de comportement par défaut
+	}
+
 
 	@Override
-	public void activate(String message) {
-		Trace.printMessage("In " + this.getParent().getName() + " : "
-				+ this.getName() + " (" + this.getClass().getSuperclass().getSimpleName() 
-				+ ") received message : " + message);
-		
+	public final void activate(String message) {
+		Trace.printInterfaceActivation(this, message);
+		this.run(message);
 	}
 }

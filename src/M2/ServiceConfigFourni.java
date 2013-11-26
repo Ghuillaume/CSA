@@ -7,12 +7,15 @@ public class ServiceConfigFourni extends ServiceConfig {
 	public ServiceConfigFourni(String name, Configuration config) {
 		super(name, config);
 	}
+	
+	public void run(String message) {
+		// Pas de comportement par défaut
+	}
+
 
 	@Override
-	public void activate(String message) {
-		Trace.printMessage("In " + this.getParent().getName() + " : "
-				+ this.getName() + " (" + this.getClass().getSuperclass().getSimpleName() 
-				+ ") received message : " + message);
-		
+	public final void activate(String message) {
+		Trace.printInterfaceActivation(this, message);
+		this.run(message);
 	}
 }

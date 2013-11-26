@@ -37,7 +37,7 @@ public class Application {
 		
 		
 		// RUNNING THE APPLICATION
-		mainConfig.getComposant("Client").getServiceF("SendRequestService").activate("test");
+		mainConfig.getComposant("Client").getServiceF("SendRequestService").activate("hello");
 	}
 
 }

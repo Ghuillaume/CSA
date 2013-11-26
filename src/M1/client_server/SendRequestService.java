@@ -10,7 +10,7 @@ public class SendRequestService extends ServiceFourni {
 		super(name, parent);
 	}
 
-	public void activate(String message) {
+	public void run(String message) {
 		Trace.printMessage("Client wants to send : " + message);
 		((SendRequestPort) this.parent.getPortF("SendRequest")).activate(message);
 	}

@@ -23,7 +23,7 @@ public class ConnexionManagerComponent extends Composant {
 			response = "Hi !";
 		}
 		else {
-			response = "Please specify your user id and your password";
+			response = "Please say hello";
 		}
 		
 		this.getPortF("ExternalSocketOut").activate(response);

@@ -1,6 +1,5 @@
 package M1.client_server;
 
-import M0.Trace;
 import M2.Composant;
 import M2.Configuration;
 

@@ -1,6 +1,5 @@
 package M1.server_details;
 
-import M1.client_server.ClientComponent;
 import M2.Configuration;
 
 public class ServerDetailsConfiguration extends Configuration {
@@ -15,6 +14,6 @@ public class ServerDetailsConfiguration extends Configuration {
 	public void build() {
 
 		// Component
-		ConnexionManagerComponent connexionManager = new ConnexionManagerComponent("ConnexionManager", this);
+		new ConnexionManagerComponent("ConnexionManager", this);
 	}
 }
